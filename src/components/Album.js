@@ -12,7 +12,8 @@ class Album extends Component{
     this.state ={
         album: album,
         currentSong: album.songs[0],
-        isPlaying: false
+        isPlaying: false,
+        onHover: false
      };
 
      this.audioElement = document.createElement('audio');
@@ -33,6 +34,31 @@ class Album extends Component{
         this.audioElement.src = song.audioSrc;
         this.setState({ currentSong: song });
     }
+  
+   onHover(song) {
+       this.setState({ hoveredSong: song });
+     }
+
+   offHover(song) {
+       this.setState({ hoveredSong: null });
+   }
+
+   playPauseButtons(song, index) {
+    if (this.state.hoveredSong === song) {
+        if(this.state.currentSong === song){
+            if(this.state.isPlaying === song){
+                return <span className="icon ion-md-pause"></span>;
+            } else {
+                return <span className="icon ion-md-play-circle"></span>
+            }
+         }
+         return <span className="icon ion-md-play-circle"></span>
+        } 
+     else if(this.state.isPlaying && this.state.currentSong === song){
+            return <span className="icon ion-md-pause"></span>;
+     }
+    return index + 1;
+    }
 
     handleSongClick(song) {
         const isSameSong = this.state.currentSong === song;
@@ -42,6 +68,7 @@ class Album extends Component{
             if (!isSameSong) { this.setSong(song); }
             this.play();
         }
+
     }
 
     render() {
@@ -64,8 +91,8 @@ class Album extends Component{
             <tbody>
             {
                this.state.album.songs.map( (song, index) => 
-               <tr key={index} onClick={() => this.handleSongClick(song)} >
-                <td>{index + 1}</td>
+               <tr key={index} onClick={() => this.handleSongClick(song)} onMouseEnter = {() => this.onHover(song)} onMouseLeave = {() => this.offHover(song)} >
+                <td>{this.playPauseButtons(song, index)}</td>
                 <td>{song.title}</td>
                 <td>{song.duration}</td>
                </tr>
