@@ -68,8 +68,7 @@ class Album extends Component{
             if (!isSameSong) { this.setSong(song); }
             this.play();
         }
-
-    }
+     }
 
     render() {
         return (
