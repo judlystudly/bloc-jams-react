@@ -10,11 +10,11 @@ class Library extends Component {
 
     render(){
         return(
-            <section className="library">
+            <section className="library mdl-grid">
            {
                this.state.albums.map( (album, index) => 
             <Link to={`/album/${album.slug}`} key={index}>
-           <img src={album.albumCover} alt={album.title} />
+           <img src={album.albumCover} alt={album.title} className="mdl-cell mdl-cell--6-col" />
                <div>{album.title}</div>
                <div>{album.artist}</div>
                <div>{album.songs.length} songs</div>

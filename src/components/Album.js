@@ -142,16 +142,18 @@ class Album extends Component{
 
     render() {
         return (
-          <section className="album">
-            <section id="album-info">
-            <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title} />
-            <div className="album-details">
-            <h1 id="album-title">{this.state.album.title}</h1>
-            <h2 className="artist">{this.state.album.artist}</h2>
-            <div id="release-info">{this.state.album.releaseInfo}</div>
+          <section className="album mdl-grid">
+            <div className="album-cover mdl-cell mdl-cell--6-col">
+            <img className="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title} />
             </div>
-           </section>
-           <table id="song-list">
+            <section className="mdl-cell mdl-cell--6-col">
+            <div className="album-details">
+            <h1 className="album-text">{this.state.album.title}</h1>
+            <h2 className="artist-text">{this.state.album.artist}</h2>
+            <div className="release-text">{this.state.album.releaseInfo}</div>
+           </div>
+           <section className="song-table">
+           <table id="song-list" className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" align="center">
             <colgroup>
              <col id="song-number-column" />
              <col id="song-title-column" />
@@ -169,6 +171,7 @@ class Album extends Component{
            }
            </tbody>
            </table>
+           </section>
            <PlayerBar 
                 isPlaying={this.state.isPlaying}
                 currentSong={this.state.currentSong}
@@ -182,6 +185,7 @@ class Album extends Component{
                 handleVolumeChange={(e) => this.handleVolumeChange(e)}
                 formatTime={(time) => this.formatTime(time)}
                 />
+           </section>
         </section>
         );
     }
